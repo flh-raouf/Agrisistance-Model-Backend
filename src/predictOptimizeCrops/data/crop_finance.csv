@@ -1,0 +1,111 @@
+Crop,weight_area,amount_area,cost_per_area
+lemon,2.0,3.0,6.0
+lentil,0.6,0.6,0.36
+lettuce,3.0,7.5,22.5
+lime,1.5,1.7999999999999998,2.7
+loquat,2.5,10.0,25.0
+longan,2.5,15.0,37.5
+lychee,2.0,10.0,20.0
+mango,2.5,6.25,15.625
+mandarin,2.0,4.0,8.0
+mulberry,3.0,12.0,36.0
+mung bean,1.0,1.5,1.5
+mushroom,2.5,12.5,31.25
+mustard,1.2,1.2,1.44
+nectarine,2.0,6.0,12.0
+okra,1.5,3.0,4.5
+olive,0.5,1.0,0.5
+onion,4.0,4.0,16.0
+orange,2.5,3.75,9.375
+oregano,0.5,4.0,2.0
+papaya,4.0,4.8,19.2
+parsnip,3.0,4.5,13.5
+passion fruit,2.5,8.75,21.875
+pea,1.2,1.7999999999999998,2.16
+peach,2.0,5.0,10.0
+pear,2.5,5.0,12.5
+peppermint,0.3,4.5,1.3499999999999999
+persimmon,2.0,6.0,12.0
+pineapple,5.0,5.0,25.0
+plum,2.5,6.25,15.625
+pomegranate,3.0,9.0,27.0
+potato,4.5,1.35,6.075
+prickly pear,2.0,4.0,8.0
+pumpkin,5.0,5.0,25.0
+hemp,0.5,0.5,0.25
+honeydew,3.5,3.5,12.25
+jackfruit,2.5,3.75,9.375
+jabuticaba,2.0,12.0,24.0
+kale,2.5,7.5,15.0
+kiwi,2.5,5.0,12.5
+kohlrabi,3.5,5.25,18.375
+kumquat,2.0,8.0,16.0
+lavender,0.2,8.0,8.0
+apricot,2.0,7.0,14.0
+artichoke,1.5,3.75,5.625
+asparagus,0.5,2.0,1.0
+avocado,1.2,3.6,4.32
+banana,10.0,5.0,5.0
+barley,0.7,0.21,0.147
+basil,1.5,15.0,22.5
+bean,1.0,1.5,1.5
+beetroot,3.5,4.2,14.700000000000001
+bell pepper,4.0,10.0,40.0
+black gram,0.8,0.96,1.2000000000000002
+blackberry,2.5,15.0,30.0
+blueberry,1.0,7.5,7.5
+broccoli,2.5,5.0,12.5
+buckwheat,0.6,0.6,0.36
+cabbage,4.5,2.25,10.125
+carrot,3.0,3.0,9.0
+cantaloupe,3.0,3.6,10.8
+cauliflower,3.0,4.5,13.5
+celery,2.0,3.0,6.0
+chickpea,0.7,0.7,0.48999999999999994
+chili pepper,1.2,4.2,5.04
+clementine,1.8,4.5,8.1
+coconut,0.5,0.2,0.1
+corn,2.5,0.75,1.875
+cranberry,1.5,7.5,11.25
+cucumber,6.0,7.199999999999999,43.2
+custard apple,2.0,8.0,16.0
+date,2.0,6.0,12.0
+dragon fruit,3.0,15.0,45.0
+durian,1.0,15.0,15.0
+elderberry,1.5,7.5,11.25
+fennel,2.0,8.0,16.0
+fig,2.0,6.0,12.0
+flax,0.4,0.8,0.32000000000000006
+garlic,2.0,5.0,10.0
+ginger,1.5,4.5,6.75
+grape,3.5,7.0,24.5
+grapefruit,3.0,4.5,22.5
+green bean,2.5,4.5,11.25
+guava,4.0,6.0,24.0
+turnip,4.0,4.8,9.6
+vanilla,0.02,10.0,0.2
+walnut,0.6,4.2,2.52
+watermelon,3.5,1.05,3.6750000000000003
+wheat,0.7,0.1399999999999999,0.098
+yam,3.0,3.0,9.0
+zucchini,3.5,5.25,18.375
+alfalfa,2.0,0.5,1.0
+almond,0.8,4.4,3.5200000000000005
+amaranth,1.0,1.5,1.5
+apple,2.5,5.0,12.5
+quince,2.5,3.75,9.375
+radish,4.5,6.75,4.5
+raspberry,2.0,12.0,24.0
+red clover,1.5,0.8999999999999999,1.35
+rye,0.5,0.15,0.075
+salad green,2.5,10.0,25.0
+sorghum,1.2,0.24,0.288
+spearmint,1.0,2.0,2.0
+spinach,3.0,9.0,27.0
+starfruit,3.0,21.0,63.0
+strawberry,2.5,11.25,28.125
+sunflower,0.8,0.5599999999999999,0.44800000000000006
+sweet potato,4.0,4.0,16.0
+tangerine,1.5,3.75,5.625
+tobacco,2.0,0.2,0.4
+tomato,5.0,12.5,62.5

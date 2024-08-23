@@ -1,0 +1,32 @@
+/
+│
+├── /data
+│   ├── crop_finance.csv  # Financial data for the crops used in the main.py
+│   ├── /utils
+│   │   ├── primary.csv                   # Crop data gathered from different resources before augmentation
+│   │   ├── script_compress_model.py      # Script to compress the model and make it loadable
+│   │   ├── script_data_normalization.py  # Script to augment and normalize data
+│   │   └── simplify_model.py             # Script to resize the model and make it loadable
+│
+├── /model
+│   ├── crop_model_simplified.joblib  # Pre-trained machine learning model
+│   ├── crop_scaler.joblib            # Pre-trained scaler for the model
+│   └── load_model.py                 # Contains the function to load the model and scaler
+│
+├── /optimization_algorithm
+│   ├── crossover_mutation.py         # Crossover and mutation functions
+│   ├── fitness.py                    # Fitness function
+│   ├── genetic_algorithm.py          # Genetic Algorithm orchestration
+│   └── population.py                 # Population initialization and selection functions
+│
+├── /training
+│   ├── all_trainable_data.csv        # Dataset used to train the crop prediction model
+│   └── trainf8_rf                    # The notebook used to train the model
+│
+├── /utils
+│   ├── display_results.py            # Functions to display results and calculate profits
+│   ├── load_helpers.py               # Functions to load models, scalers, and data
+│   └── predictions.py                # Functions to handle predictions
+│
+└── main.py                           # Main script to run the program
+

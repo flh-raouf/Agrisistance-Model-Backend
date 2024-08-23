@@ -1,28 +1,31 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import json
+
+from src.predictOptimizeCrops.main import predict_optimize_crops_main
+from src.generateBusinessPlan.main import generate_business_plan_main
 
 
-from Controllers.cropPrediction.BestCropPrediction import BestCropPredictionMain
-from Controllers.OptimizationPrediction.optimization_algorithm_independent import OptimizationMain
+
 
 app = FastAPI()
 
 class InputData(BaseModel):
     input: list[float] 
 
-@app.post('/predict')
-async def predict(data: InputData):
-    try:
-    
-        # Get predictions from the model
-        firstPredictions = BestCropPredictionMain(data.input)
-        secondPredictions = OptimizationMain(firstPredictions)
 
-        
-        return {
-                "firstPredictions": firstPredictions,
-                "secondPredictions": secondPredictions
-                }
+@app.post('/generate-business-plan')
+async def predict(data: InputData):
+    try:  
+        InputData = data.input
+        cropData = predict_optimize_crops_main(InputData)
+        if isinstance(cropData, str):
+            cropData = json.loads(cropData)
+        print(cropData)
+        businessPlan = generate_business_plan_main(InputData, cropData)
+        print (businessPlan)
+        return {"message": "Prediction Complete!", "data": businessPlan}
+    
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
