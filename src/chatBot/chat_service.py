@@ -3,7 +3,7 @@ from pydantic import BaseModel, validator
 import requests
 from dotenv import load_dotenv
 import os
-from typing import Dict, List
+from typing import List, Optional, Dict, Any
 from collections import defaultdict
 
 # Load environment variables from .env file
@@ -21,12 +21,12 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
     model: str
-    messages: list[Message]
-    max_token: int = None
-    temperature: float = None
-    response_format: str = 'text/plain'
-    function: dict = None
-    user_id: str = None
+    messages: List[Message]
+    max_token: int
+    temperature: float
+    response_format: str
+    # function: Optional[Dict[str, Any]]  
+    user_id: Optional[str]
 
     @validator('messages')
     def validate_messages(cls, messages):
@@ -55,7 +55,7 @@ def generate_content(request: ChatRequest):
         "max_token": request.max_token or 150,  # Default value
         "temperature": request.temperature or 0.7,  # Default value
         "response_format": request.response_format,
-        "function": request.function,
+        # "function": request.function,
         "user_id": request.user_id
     }
     
@@ -65,38 +65,3 @@ def generate_content(request: ChatRequest):
         headers=headers
     )
     return response.json()
-
-@app.post("/chat")
-async def chat(request: ChatRequest):
-    user_id = request.user_id
-    if user_id:
-        # Append incoming message to history
-        conversation_history[user_id].append({"role": "user", "content": request.messages[-1].content})
-
-    try:
-        # Include conversation history in request
-        messages_with_history = conversation_history.get(user_id, []) + request.messages
-        request_with_history = ChatRequest(
-            model=request.model,
-            messages=messages_with_history,
-            max_token=request.max_token,
-            temperature=request.temperature,
-            response_format=request.response_format,
-            function=request.function,
-            user_id=request.user_id
-        )
-        
-        response = generate_content(request_with_history)
-        
-        # Append chatbot's response to history
-        if user_id:
-            conversation_history[user_id].append({"role": "assistant", "content": response['response']['messages'][-1]['content']})
-
-        if response.get('error'):
-            raise HTTPException(status_code=400, detail=response.get('error'))
-
-        return response
-    except requests.RequestException as req_e:
-        raise HTTPException(status_code=502, detail=f"Request failed: {str(req_e)}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")

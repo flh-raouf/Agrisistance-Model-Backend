@@ -10,7 +10,7 @@ async function sendMessageToChatbot(message) {
             max_token: 100,
             temperature: 0.7,
             response_format: 'text/plain',
-            user_id: 'user123'  // Optional
+            user_id: 'agricultural_chatbot'  
         })
     });
 

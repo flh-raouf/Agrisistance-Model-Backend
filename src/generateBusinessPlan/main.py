@@ -3,6 +3,7 @@ import json
 from typing import List, Dict
 from dotenv import load_dotenv
 from .services.business_plan_generator import generate_business_plan
+from .util.parseBusinessPlan import parse_detailed_business_plan_response , parse_business_plan_response
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -10,6 +11,8 @@ load_dotenv()
 # Access the environment variables
 API_TOKEN = os.getenv("API_TOKEN")
 API_URL = os.getenv("API_URL")
+
+
 
 def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]):
     # Extract crop data
@@ -42,7 +45,7 @@ def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]
     total_area = int(InputData[9])
 
     # Generate business plan
-    result = generate_business_plan(
+    response = generate_business_plan(
         crops_data=crops_data,
         soil_params=soil_params,
         weather_data=weather_data,
@@ -51,5 +54,7 @@ def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]
         api_token=API_TOKEN,
         api_url=API_URL
     )
+
+    businessPlan = parse_detailed_business_plan_response(response)
     
-    return result  
+    return  businessPlan   

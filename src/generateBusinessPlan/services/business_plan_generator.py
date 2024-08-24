@@ -62,4 +62,5 @@ Please ensure all output is in valid JSON format."""
         except json.JSONDecodeError:
             return {"error": f"Unable to parse JSON response. Raw content: {content}"}
     else:
-        return {"error": f"{response.status_code} - {response.text}"}
+        # return {"error": f"{response.status_code} - {response.text}"}
+        return response.text
