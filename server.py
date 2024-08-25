@@ -8,16 +8,13 @@ from src.predictOptimizeCrops.main import predict_optimize_crops_main
 from src.generateBusinessPlan.main import generate_business_plan_main
 from src.chatBot.chat_service import ChatRequest
 
-from src.generateBusinessPlan.util.parseBusinessPlan import parse_detailed_business_plan_response
-
-
-
+from DB.DBqueries import get_model_inputs, process_business_plan_and_save, process_crops_and_save
 
 
 app = FastAPI()
 
 class InputData(BaseModel):
-    input: list[float] 
+    land_id: str
 
 
 @app.get('/')
@@ -27,19 +24,26 @@ async def root():
 
 
 @app.post('/generate-business-plan')
-async def predict(data: InputData):
-    try:  
-        InputData = data.input
+async def generateBusinessPlan(data: InputData):
+    try:
+        land_id = data.land_id
 
-        cropData = predict_optimize_crops_main(InputData)
+        # Fetch necessary data from the database using the land_id and user_id
+        model_inputs = await get_model_inputs(land_id)
+
+        # Pass the model inputs to the crop prediction function
+        cropData = predict_optimize_crops_main(model_inputs)
         if isinstance(cropData, str):
             cropData = json.loads(cropData)
             
-        businessPlan = generate_business_plan_main(InputData, cropData)
+        businessPlan = generate_business_plan_main(model_inputs, cropData)
         if isinstance(businessPlan, str):
             businessPlan = json.loads(businessPlan)
 
-            
+        # Save the business plan and crop data to the database
+        await process_business_plan_and_save(businessPlan, land_id)   
+        await process_crops_and_save(cropData, land_id)    
+
         return {
             "cropData": cropData,
             "businessPlan": businessPlan
@@ -61,7 +65,7 @@ async def chat(request: ChatRequest):
         }
         payload = request.dict()
         response = requests.post(
-            'https://api.afro.fit/api_v2/api_wrapper/chat/completions',
+            os.getenv('API_URL'),
             json=payload,
             headers=headers
         )
@@ -74,5 +78,5 @@ async def chat(request: ChatRequest):
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host='127.0.0.1', port=8082)
+    uvicorn.run(app, host='127.0.0.1', port=8000)
 

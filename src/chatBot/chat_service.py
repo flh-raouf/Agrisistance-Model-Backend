@@ -60,7 +60,7 @@ def generate_content(request: ChatRequest):
     }
     
     response = requests.post(
-        'https://api.afro.fit/api_v2/api_wrapper/chat/completions',
+        os.getenv('API_URL'),
         json=payload,
         headers=headers
     )
