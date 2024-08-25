@@ -9,14 +9,14 @@ async def get_model_inputs(land_id: str):
         async with conn.cursor(aiomysql.DictCursor) as cursor:
             # Fetch land data
             await cursor.execute(
-                'SELECT land_size, ph_level, phosphorus, potassium, oxygen_level, nitrogen FROM land_data WHERE land_id = %s',
+                'SELECT land_size, ph_level, phosphorus, potassium, oxygen_level, nitrogen FROM Land_Data WHERE land_id = %s',
                 (land_id)
             )
             land_data = await cursor.fetchone()
 
             # Fetch weather data
             await cursor.execute(
-                'SELECT temperature, humidity, rainfall FROM weather_data WHERE land_id = %s',
+                'SELECT temperature, humidity, rainfall FROM Weather_Data WHERE land_id = %s',
                 (land_id,)
             )
             weather_data = await cursor.fetchone()
