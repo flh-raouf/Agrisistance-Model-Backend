@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
+import time
 import json
 import os
 
@@ -22,9 +23,10 @@ async def root():
     return {"message": "Welcome to the API"}
 
 
-
 @app.post('/generate-business-plan')
 async def generateBusinessPlan(data: InputData):
+    start_time = time.time() 
+    
     try:
         land_id = data.land_id
 
@@ -57,7 +59,10 @@ async def generateBusinessPlan(data: InputData):
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
     
-
+    finally:
+        execution_time = time.time() - start_time  
+        print(f"Execution time: {execution_time:.2f} seconds")
+        
 
 
 @app.post("/chat")
