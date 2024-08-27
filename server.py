@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, make_response
+from asgiref.wsgi import WsgiToAsgi
 import requests
 import time
 import json
@@ -14,7 +15,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    return jsonify({"message": "Welcome to the API"})
+    return jsonify({"message": "Welcome to Agrissistance Models API"})
 
 @app.route('/generate-business-plan', methods=['POST'])
 def generate_business_plan():
@@ -75,7 +76,9 @@ def chat():
     
     except Exception as e:
         return make_response(jsonify({"detail": str(e)}), 500)
+    
 
+asgi_app = WsgiToAsgi(app)
 
 if __name__ == '__main__':
     app.run()
