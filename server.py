@@ -14,11 +14,11 @@ from DB.DBqueries import get_model_inputs, process_business_plan_and_save, proce
 app = Flask(__name__)
 
 @app.route('/')
-def root():
+async def root():
     return jsonify({"message": "Welcome to Agrissistance Models API"})
 
 @app.route('/generate-business-plan', methods=['POST'])
-def generate_business_plan():
+async def generate_business_plan():
     start_time = time.time()
     
     try:
@@ -27,7 +27,7 @@ def generate_business_plan():
         
         # Fetch necessary data from the database using the land_id
         print('Fetching model inputs...')
-        model_inputs = get_model_inputs(land_id)
+        model_inputs = await get_model_inputs(land_id)
 
         # Pass the model inputs to the crop prediction function
         print('Predicting and optimizing crops...')
@@ -42,8 +42,8 @@ def generate_business_plan():
 
         # Save the business plan and crop data to the database
         print('Saving data to the database...')
-        process_business_plan_and_save(businessPlan, land_id)
-        process_crops_and_save(cropData, land_id)
+        await process_business_plan_and_save(businessPlan, land_id)
+        await process_crops_and_save(cropData, land_id)
 
         return jsonify({
             "cropData": cropData,
@@ -60,7 +60,7 @@ def generate_business_plan():
 
 
 @app.route("/chat", methods=['POST'])
-def chat():
+async def chat():
     try:
         headers = {
             'Content-Type': 'application/json',
