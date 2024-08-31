@@ -45,7 +45,7 @@ def display_optimal_allocation(crops, best_solution, cost_per_m2, weight_area, r
     results["total_expected_return_in_money"] = f"${total_expected_money_return:.2f}"
     results["total_expected_return_in_weight"] = f"{total_expected_weight_return:.2f} units"
     results["total_cost"] = f"${total_cost:.2f}"
-    results["total_profit"] = f"${total_profit:.2f}"
+    results["total_profit"] = total_profit
     results["budget_utilization"] = f"{(total_cost / total_budget) * 100:.2f}%"
 
     # Convert the results dictionary to a JSON string and store it in a variable

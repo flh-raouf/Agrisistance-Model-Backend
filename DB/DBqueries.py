@@ -40,7 +40,7 @@ async def get_model_inputs(land_id: str):
         conn.close()
 
 
-async def process_business_plan_and_save(businessPlan, land_id):
+async def process_business_plan_and_save(businessPlan, cropData, land_id):
     # Generate UUIDs
     businessPlanId = str(uuid.uuid4())
     land_statistics_id = str(uuid.uuid4())
@@ -56,6 +56,9 @@ async def process_business_plan_and_save(businessPlan, land_id):
         ]
     )
 
+    total_profit = cropData.get('total_profit')
+    print (total_profit)
+
     # Extracting key variables impacting the plan and handling 'N/A' values
     def handle_na(value):
         return 0 if value == 'N/A' else value
@@ -68,6 +71,8 @@ async def process_business_plan_and_save(businessPlan, land_id):
             'Pesticides Levels'
         ]
     )
+
+    
 
     # Reconnect and save data to the database
     conn = await connect()
@@ -85,12 +90,12 @@ async def process_business_plan_and_save(businessPlan, land_id):
                 weather_considerations, soil_maintenance, 
                 profit_estimations, other_recommendations, land_id
             ))
-
+        
             # Insert into Land_Statistics table
-            sql_ls = "INSERT INTO Land_Statistics VALUES (%s, %s, %s, %s, %s, %s)"
+            sql_ls = "INSERT INTO Land_Statistics VALUES (%s, %s, %s, %s, %s, %s, %s)"
             await cursor.execute(sql_ls, (
                 land_statistics_id, land_use, human_coverage, 
-                water_availability, distribution_optimality, land_id
+                water_availability, distribution_optimality, total_profit, land_id
             ))
 
             # Insert into Crop_Maintenance table
