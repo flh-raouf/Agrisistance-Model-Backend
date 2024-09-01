@@ -57,7 +57,6 @@ async def process_business_plan_and_save(businessPlan, cropData, land_id):
     )
 
     total_profit = cropData.get('total_profit')
-    print (total_profit)
 
     # Extracting key variables impacting the plan and handling 'N/A' values
     def handle_na(value):

@@ -37,8 +37,11 @@ async def generate_business_plan():
         if isinstance(businessPlan, str):
             businessPlan = json.loads(businessPlan)
 
-
+        print("Business Plan: ", businessPlan)
+        print("Crop Data: ", cropData)
+              
         # Save the business plan and crop data to the database
+        print("Saving to database...")
         await process_business_plan_and_save(businessPlan, cropData, land_id)
         await process_crops_and_save(cropData, land_id)
 
