@@ -44,12 +44,12 @@ def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]
     budget = int(InputData[8])  # Available budget for the business plan
     total_area = int(InputData[9])  # Total area available for crop cultivation
 
-    # Log the extracted data before generating the business plan
-    print(f"Generating business plan with the following data:")
-    print(f"Crops Data: {crops_data}")
-    print(f"Soil Parameters: {soil_params}")
-    print(f"Weather Data: {weather_data}")
-    print(f"Budget: {budget}, Total Area: {total_area}")
+    # # Log the extracted data before generating the business plan
+    # print(f"Generating business plan with the following data:")
+    # print(f"Crops Data: {crops_data}")
+    # print(f"Soil Parameters: {soil_params}")
+    # print(f"Weather Data: {weather_data}")
+    # print(f"Budget: {budget}, Total Area: {total_area}")
     
     # Generate business plan by calling the external service
     response = generate_business_plan(

@@ -55,7 +55,7 @@ def generate_business_plan(
     }
 
     # Log the prompt being sent to the API for debugging
-    print(f"Sending prompt to API: {prompt}")
+    # print(f"Sending prompt to API: {prompt}")
     
     # Make the POST request to the AI API
     response = requests.post(api_url, json=payload, headers=headers)
@@ -65,7 +65,7 @@ def generate_business_plan(
         try:
             # Attempt to parse the JSON content from the response
             content = response.json()['response']['messages'][0]['content']
-            print("Successfully received and parsed the response from the API.")
+            # print("Successfully received and parsed the response from the API.")
             return json.loads(content)  # Convert the response content to a Python dictionary
         except json.JSONDecodeError:
             # Log an error message if JSON parsing fails
@@ -73,5 +73,5 @@ def generate_business_plan(
             return {"error": f"Unable to parse JSON response. Raw content: {content}"}
     else:
         # Log the response code and text if the request was unsuccessful
-        print(f"Error: Received status code {response.status_code}. Response text: {response.text}")
+        # print(f"Received status code {response.status_code}. Response text: {response.text}")
         return response.text  # Return the raw response text for further investigation

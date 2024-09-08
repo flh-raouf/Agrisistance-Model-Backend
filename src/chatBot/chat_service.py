@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 import requests
 from dotenv import load_dotenv
 import os
@@ -28,7 +28,7 @@ class ChatRequest(BaseModel):
     # function: Optional[Dict[str, Any]]  
     user_id: Optional[str]
 
-    @validator('messages')
+    @field_validator('messages')
     def validate_messages(cls, messages):
         if not isinstance(messages, list) or not all(isinstance(msg, Message) for msg in messages):
             raise ValueError('Messages must be a list of Message objects')

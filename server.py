@@ -9,7 +9,7 @@ from src.predictOptimizeCrops.main import predict_optimize_crops_main
 from src.generateBusinessPlan.main import generate_business_plan_main
 from src.chatBot.chat_service import ChatRequest
 
-from DB.DBqueries import get_model_inputs, process_business_plan_and_save, process_crops_and_save
+from src.prisma.db_operations import get_model_inputs, process_business_plan_and_save, process_crops_and_save
 
 app = Flask(__name__)
 
@@ -36,12 +36,8 @@ async def generate_business_plan():
         businessPlan = generate_business_plan_main(model_inputs, cropData)
         if isinstance(businessPlan, str):
             businessPlan = json.loads(businessPlan)
-
-        print("Business Plan: ", businessPlan)
-        print("Crop Data: ", cropData)
               
         # Save the business plan and crop data to the database
-        print("Saving to database...")
         await process_business_plan_and_save(businessPlan, cropData, land_id)
         await process_crops_and_save(cropData, land_id)
 
