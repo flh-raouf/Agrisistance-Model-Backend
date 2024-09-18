@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output = "../generated/land-client"
+  provider = "prisma-client-py"
+  output = "../generated/landclient"
 }
 
 datasource db {

@@ -1,4 +1,4 @@
-from prisma import Prisma
+from generated.landclient.client import Prisma
 
 class PrismaConnection:
 
