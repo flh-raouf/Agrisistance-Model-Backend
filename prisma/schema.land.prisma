@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-py"
-  recursive_type_depth = 5
+  provider = "prisma-client-js"
+  output = "../generated/land-client"
 }
 
 datasource db {

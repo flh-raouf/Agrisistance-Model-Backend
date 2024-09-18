@@ -4,6 +4,14 @@ import re
 async def get_model_inputs(land_id: str):
     await prisma_connection.connect()
     try:
+        # Check if the land_id exists in the database
+        land_exists = await prisma_connection.prisma.land.find_unique(
+            where={"land_id": land_id},
+        )
+
+        if not land_exists:
+            raise ValueError("Land ID does not exist in the database")
+
         # Fetch land data
         land_data = await prisma_connection.prisma.land.find_unique(
             where={"land_id": land_id},
