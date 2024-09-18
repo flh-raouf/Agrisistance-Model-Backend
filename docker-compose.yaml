@@ -1,0 +1,16 @@
+services:
+  agrisistance-land-db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_LAND_DB}
+    networks:
+      - agrisistance-network
+
+networks:
+  agrisistance-network:
+    driver: bridge
