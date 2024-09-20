@@ -1,4 +1,4 @@
-from .db_connection import get_db_connection
+from DB.db_connection import get_db_connection
 from psycopg2.extras import RealDictCursor
 import re
 
