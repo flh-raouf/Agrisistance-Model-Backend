@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
 
-def get_db_connection():
+def get_db_connect():
     connection = psycopg2.connect(
         host= os.getenv('DB_HOST'),
         database= os.getenv('DB_NAME'),
@@ -12,4 +12,4 @@ def get_db_connection():
     )
     return connection
 
-get_db_connection = get_db_connection()
+get_db_connection = get_db_connect()
