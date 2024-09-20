@@ -9,7 +9,7 @@ from src.predictOptimizeCrops.main import predict_optimize_crops_main
 from src.generateBusinessPlan.main import generate_business_plan_main
 from src.chatBot.chat_service import ChatRequest
 
-from src.prisma.db_operations import get_model_inputs, process_business_plan_and_save, process_crops_and_save
+from DB.db_operations import get_model_inputs, process_business_plan_and_save, process_crops_and_save
 
 app = Flask(__name__)
 
