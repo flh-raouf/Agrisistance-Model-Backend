@@ -52,7 +52,7 @@ async def generate_business_plan():
             print(f"Error in crop prediction: {str(e)}")
             print(traceback.format_exc())
             raise
-
+        
         print("Generating business plan")
         try:
             businessPlan = generate_business_plan_main(model_inputs, cropData)

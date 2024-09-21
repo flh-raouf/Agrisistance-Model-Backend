@@ -36,6 +36,8 @@ def predict_optimize_crops_main(InputData):
     total_area = int(total_area)
 
     # Get crop predictions
+    if input_rainfall == 0:
+        input_rainfall== 500;
     crops = predict_interactive(model, scaler, input_ph, input_temperature, input_rainfall, 
                                 input_humidity, input_nitrogen, input_phosphorus, input_potassium, input_o2)
         
@@ -45,8 +47,8 @@ def predict_optimize_crops_main(InputData):
     # Run the genetic algorithm to find the best allocation
     best_solution = run_genetic_algorithm(crops, cost_per_m2, revenue_per_m2, total_area, total_budget, 
                                           population_size, num_generations, mutation_rate, crossover_rate)
-    
+    print(best_solution)
     # Display and return the optimal allocation
     OptimizationData = display_optimal_allocation(crops, best_solution, cost_per_m2, weight_area, revenue_per_m2, total_area, total_budget)
-
+    print(OptimizationData)
     return OptimizationData

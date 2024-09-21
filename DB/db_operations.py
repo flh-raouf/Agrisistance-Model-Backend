@@ -2,7 +2,7 @@ from DB.db_connection import get_db_connection
 from psycopg2.extras import RealDictCursor
 import re
 import uuid
-
+import json
 '''
 def get_db_schema():
     connection = get_db_connection()
@@ -116,12 +116,20 @@ def get_model_inputs(land_id):
     try:
         # Prepare the model inputs
         print("Preparing model inputs...")
-        model_inputs = [
+        if weather_data['rainfall']==0:
+            model_inputs = [
+            land_data['ph_level'], weather_data['temperature'], 300, 
+            weather_data['humidity'], land_data['nitrogen'], land_data['phosphorus'], 
+            land_data['potassium'], land_data['oxygen_level'], 
+            financial_data['investment_amount'], land_data['land_size']
+              ]
+        else:
+            model_inputs = [
             land_data['ph_level'], weather_data['temperature'], weather_data['rainfall'], 
             weather_data['humidity'], land_data['nitrogen'], land_data['phosphorus'], 
             land_data['potassium'], land_data['oxygen_level'], 
             financial_data['investment_amount'], land_data['land_size']
-        ]
+              ]
         print(f"Model inputs prepared: {model_inputs}")
 
         return model_inputs
@@ -149,16 +157,22 @@ def process_business_plan_and_save(businessPlan, cropData, land_id):
 
         # Generate a new UUID for the business_plan_id
         business_plan_id = str(uuid.uuid4())
-
+                    
         # Insert into BusinessPlan table
-        try:
+        try:              
             cursor.execute("""
             INSERT INTO "BusinessPlan" (business_plan_id, executive_summary, resources, crops, weather_considerations, 
                                     soil_maintenance, profit_estimations, other_recommendations, land_id) 
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """, (business_plan_id, businessPlan['Executive Summary'], businessPlan['Resources'], businessPlan['Crops'], 
-                businessPlan['Weather Considerations'], businessPlan['Soil/Crop Maintenance'], 
-                businessPlan['Profit Estimations'], businessPlan['Other Recommendations'], land_id))
+            """, ( business_plan_id, 
+        businessPlan['Executive Summary'], 
+        json.dumps(businessPlan['Resources']),  # Convert dict to JSON string
+        json.dumps(businessPlan['Crops']),      # Convert dict to JSON string
+        json.dumps(businessPlan['Weather Considerations']),  # Convert dict to JSON string
+        json.dumps(businessPlan['Soil/Crop Maintenance']),   # Convert dict to JSON string
+        json.dumps(businessPlan['Profit Estimations']),      # Convert dict to JSON string
+        businessPlan['Other Recommendations'], 
+        land_id))
             print("BusinessPlan insertion successful")
         except Exception as e:
             print(f"Error inserting into BusinessPlan: {str(e)}")
