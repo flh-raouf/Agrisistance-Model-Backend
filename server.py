@@ -47,7 +47,7 @@ async def generate_business_plan():
             print(f"Crop data type: {type(cropData)}")
             if isinstance(cropData, str):
                 cropData = json.loads(cropData)
-            #print(f"Crop data: {cropData}")
+            print(f"Crop data: {cropData}")
         except Exception as e:
             print(f"Error in crop prediction: {str(e)}")
             print(traceback.format_exc())
@@ -59,7 +59,8 @@ async def generate_business_plan():
             print(f"Business plan type: {type(businessPlan)}")
             if isinstance(businessPlan, str):
                 businessPlan = json.loads(businessPlan)
-           # print(f"Business plan: {businessPlan}")
+            print("we made it !!")
+            print(f"Business plan: {businessPlan}")
         except Exception as e:
             print(f"Error generating business plan: {str(e)}")
             print(traceback.format_exc())
