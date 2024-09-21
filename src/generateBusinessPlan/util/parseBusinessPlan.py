@@ -8,16 +8,16 @@ def parse_detailed_business_plan_response(response):
         # Parse the JSON content from the response
         #print("Original response:", response)  # Debug: Print the original response
         business_plan_json = json.loads(response)  # Convert the response string into a JSON object
-        #print("Parsed business plan JSON:", business_plan_json)  # Debug: Print the parsed JSON
+        print("Parsed business plan JSON:", business_plan_json)  # Debug: Print the parsed JSON
 
         content = json.loads(business_plan_json["response"]["messages"][0]["content"])  # Extract and parse the content part of the response
-       # print("Content extracted from response:", content)  # Debug: Print the extracted content
+        print("Content extracted from response:", content)  # Debug: Print the extracted content
 
         # Extract the business plan sections from the parsed content
         bp = content["BP"]  # Business plan details
-        #print("Business plan details (BP):", bp)  # Debug: Print business plan details
+        print("Business plan details (BP):", bp)  # Debug: Print business plan details
         variables = content["variables"]  # Key variables impacting the plan
-        #print("Variables impacting the plan:", variables)  # Debug: Print key variables
+        print("Variables impacting the plan:", variables)  # Debug: Print key variables
 
         # Build a structured JSON object for the business plan with key sections
         readable_plan_json = {

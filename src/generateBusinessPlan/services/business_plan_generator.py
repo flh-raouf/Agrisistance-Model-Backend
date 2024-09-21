@@ -30,7 +30,7 @@ def generate_business_plan(
 
     7. Other Recommendations: Provide additional suggestions to improve growth, land use, or investment returns.
 
-    In the 'variables' dictionary, include the following calculated metrics, use approximations if needed do not return null values, only numeric values:
+    In the 'variables' dictionary, include the following calculated metrics, return only numeric values, no strings or text:
     - Human Coverage: Ratio of workers the farmer can afford to workers needed
     - Water Availability: Ratio of water available in the area to water needed
     - Land Use: Ratio of area used (sum of crop areas) to total area ({total_area})

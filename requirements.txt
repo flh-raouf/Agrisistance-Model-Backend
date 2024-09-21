@@ -19,3 +19,5 @@ prisma==0.15.0
 nodeenv==1.9.1
 tomlkit==0.13.2
 psycopg2-binary==2.9.9
+quart==0.18.3
+asyncpg==0.27.0
