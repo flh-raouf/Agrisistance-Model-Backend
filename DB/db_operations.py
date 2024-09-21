@@ -42,8 +42,6 @@ def get_db_schema():
 
 '''
 
-
-
 def get_model_inputs(land_id):
    # get_db_schema()  # Output schema for debugging
     connection = get_db_connection()
@@ -149,52 +147,70 @@ def process_business_plan_and_save(businessPlan, cropData, land_id):
         cursor.execute('DELETE FROM "LandStatistic" WHERE land_id = %s', (land_id,))
         cursor.execute('DELETE FROM "CropMaintenance" WHERE land_id = %s', (land_id,))
 
-       
-
         # Generate a new UUID for the business_plan_id
         business_plan_id = str(uuid.uuid4())
 
         # Insert into BusinessPlan table
-        cursor.execute("""
-        INSERT INTO "BusinessPlan" (business_plan_id, executive_summary, resources, crops, weather_considerations, 
-                                soil_maintenance, profit_estimations, other_recommendations, land_id) 
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, (business_plan_id, businessPlan['Executive Summary'], businessPlan['Resources'], businessPlan['Crops'], 
-             businessPlan['Weather Considerations'], businessPlan['Soil/Crop Maintenance'], 
-             businessPlan['Profit Estimations'], businessPlan['Other Recommendations'], land_id))
+        try:
+            cursor.execute("""
+            INSERT INTO "BusinessPlan" (business_plan_id, executive_summary, resources, crops, weather_considerations, 
+                                    soil_maintenance, profit_estimations, other_recommendations, land_id) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (business_plan_id, businessPlan['Executive Summary'], businessPlan['Resources'], businessPlan['Crops'], 
+                businessPlan['Weather Considerations'], businessPlan['Soil/Crop Maintenance'], 
+                businessPlan['Profit Estimations'], businessPlan['Other Recommendations'], land_id))
+            print("BusinessPlan insertion successful")
+        except Exception as e:
+            print(f"Error inserting into BusinessPlan: {str(e)}")
+            raise
 
         # Generate a new UUID for the land_statistic_id
         land_stat_id = str(uuid.uuid4())
 
         # Insert into LandStatistc table
-        cursor.execute("""
-        INSERT INTO "LandStatistic" (land_stat_id, land_use, human_coverage, water_availability, 
-                                distribution_optimality, total_profit, land_id) 
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (land_stat_id, businessPlan['Key Variables Impacting the Plan']['Land Use'], 
-             businessPlan['Key Variables Impacting the Plan']['Human Coverage'], 
-             businessPlan['Key Variables Impacting the Plan']['Water Availability'], 
-             businessPlan['Key Variables Impacting the Plan']['Distribution Optimality'], 
-             cropData.get('total_profit'), land_id))
-
-     
+        try:
+            cursor.execute("""
+            INSERT INTO "LandStatistic" (land_stat_id, land_use, human_coverage, water_availability, 
+                                    distribution_optimality, total_profit, land_id) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (land_stat_id, businessPlan['Key Variables Impacting the Plan']['Land Use'], 
+                businessPlan['Key Variables Impacting the Plan']['Human Coverage'], 
+                businessPlan['Key Variables Impacting the Plan']['Water Availability'], 
+                businessPlan['Key Variables Impacting the Plan']['Distribution Optimality'], 
+                cropData.get('total_profit'), land_id))
+            print("LandStatistic insertion successful")
+        except Exception as e:
+            print(f"Error inserting into LandStatistic: {str(e)}")
+            raise
 
         # Generate a new UUID for the maintenance_id
         maintenance_id = str(uuid.uuid4())
 
         # Insert into CropMaintenance table
-        cursor.execute("""
-            INSERT INTO "CropMaintenance" (maintenance_id, pesticide_level, water_sufficienty, land_id) 
-            VALUES (%s, %s, %s, %s)
-            """, (maintenance_id, businessPlan['Key Variables Impacting the Plan']['Pesticides Levels'], 
-                businessPlan['Key Variables Impacting the Plan']['Water Availability'], land_id))
-
+        try:
+            cursor.execute("""
+                INSERT INTO "CropMaintenance" (maintenance_id, pesticide_level, water_sufficienty, land_id) 
+                VALUES (%s, %s, %s, %s)
+                """, (maintenance_id, businessPlan['Key Variables Impacting the Plan']['Pesticides Levels'], 
+                    businessPlan['Key Variables Impacting the Plan']['Water Availability'], land_id))
+            print("CropMaintenance insertion successful")
+        except Exception as e:
+            print(f"Error inserting into CropMaintenance: {str(e)}")
+            raise
 
         connection.commit()
+        print("All insertions successful. Changes committed.")
+
+    except Exception as e:
+        print(f"An error occurred during the process: {str(e)}")
+        connection.rollback()
+        print("Changes rolled back due to error.")
+        raise
 
     finally:
         cursor.close()
         connection.close()
+        print("Database connection closed.")
 
 
 def clean_value(value):
