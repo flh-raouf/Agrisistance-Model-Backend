@@ -2,7 +2,6 @@ from DB.db_connection import get_db_connection
 from psycopg2.extras import RealDictCursor
 import re
 
-
 def get_model_inputs(land_id):
     connection = get_db_connection()
     cursor = connection.cursor(cursor_factory=RealDictCursor)
