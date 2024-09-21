@@ -13,9 +13,14 @@ load_dotenv()
 API_TOKEN = os.getenv("API_TOKEN")  # API token for authenticating requests
 API_URL = os.getenv("API_URL")  # URL of the API endpoint
 
+# Debug: Print loaded environment variables
+print("Loaded environment variables:")
+print(f"API_TOKEN: {'<hidden>' if API_TOKEN else 'Not Found'}")
+print(f"API_URL: {API_URL}")
 
 def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]):
     # Extract crop data for each crop in the optimal allocation
+    print("Extracting crop data from cropData...")  # Debug: Start of crop data extraction
     crops_data = [
         {
             "name": crop['crop'],  # Name of the crop
@@ -25,8 +30,9 @@ def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]
         }
         for crop in cropData['optimal_allocation']
     ]
-    
+
     # Extract soil parameters from the input data
+    print("Extracting soil parameters from InputData...")  # Debug: Start of soil parameters extraction
     soil_params = {
         "pH": InputData[0],  # Soil pH value
         "nitrogen": InputData[4],  # Nitrogen level in the soil
@@ -35,23 +41,20 @@ def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]
     }
 
     # Extract weather data from the input data
+    print("Extracting weather data from InputData...")  # Debug: Start of weather data extraction
     weather_data = {
         "annual_rainfall": InputData[2],  # Annual rainfall amount
         "average_temperature": InputData[1]  # Average temperature
     }
 
     # Extract budget and total area from the input data
+    print("Extracting budget and total area from InputData...")  # Debug: Start of budget and area extraction
     budget = int(InputData[8])  # Available budget for the business plan
     total_area = int(InputData[9])  # Total area available for crop cultivation
+    print(f"Extracted Budget: {budget}, Total Area: {total_area}")  # Debug: Print extracted budget and total area
 
-    # # Log the extracted data before generating the business plan
-    # print(f"Generating business plan with the following data:")
-    # print(f"Crops Data: {crops_data}")
-    # print(f"Soil Parameters: {soil_params}")
-    # print(f"Weather Data: {weather_data}")
-    # print(f"Budget: {budget}, Total Area: {total_area}")
-    
     # Generate business plan by calling the external service
+    print("Generating business plan...")  # Debug: Start of business plan generation
     response = generate_business_plan(
         crops_data=crops_data,
         soil_params=soil_params,
@@ -61,8 +64,10 @@ def generate_business_plan_main(InputData: List[float], cropData: Dict[str, any]
         api_token=API_TOKEN,
         api_url=API_URL
     )
+    print("Business plan response received.")  # Debug: Confirm response received
 
     # Parse the detailed business plan response
+    print("Parsing the detailed business plan response...")  # Debug: Start of parsing
     businessPlan = parse_detailed_business_plan_response(response)
-    
+
     return businessPlan  # Return the parsed business plan
